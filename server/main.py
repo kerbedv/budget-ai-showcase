@@ -211,16 +211,19 @@ def _load_with_env(name: str, envvar: str | None = None):
     logger.info("model_loaded name=%s version=%s path=%s", name, meta.get("version"), path)
 
 # Load core bundles (pin via VER_* envs, or latest local if unset)
-_load_with_env("kmeans_spend",               "VER_KMEANS")
-_load_with_env("xgb_spending_rate",          "VER_XGB_SPEND")
-_load_with_env("xgb_saving_rate",            "VER_XGB_SAVE")
-_load_with_env("xgb_entertainment_percentage","VER_XGB_ENT")
-_load_with_env("xgb_housing_rate",           "VER_XGB_HOUS")
-_load_with_env("xgb_credit_rate",            "VER_XGB_CRED")
-_load_with_env("xgb_health_rate",            "VER_XGB_HEALTH")
-_load_with_env("xgb_food_percentage",        "VER_XGB_FOOD")
-_load_with_env("xgb_savings_goal",           "VER_XGB_GOAL")
-
+if not SAFE_SHOWCASE:
+    _load_with_env("kmeans_spend",               "VER_KMEANS")
+    _load_with_env("xgb_spending_rate",          "VER_XGB_SPEND")
+    _load_with_env("xgb_saving_rate",            "VER_XGB_SAVE")
+    _load_with_env("xgb_entertainment_percentage","VER_XGB_ENT")
+    _load_with_env("xgb_housing_rate",           "VER_XGB_HOUS")
+    _load_with_env("xgb_credit_rate",            "VER_XGB_CRED")
+    _load_with_env("xgb_health_rate",            "VER_XGB_HEALTH")
+    _load_with_env("xgb_food_percentage",        "VER_XGB_FOOD")
+    _load_with_env("xgb_savings_goal",           "VER_XGB_GOAL")
+else:
+    logger.info("SAFE_SHOWCASE=1 — skipping artifact loads (BUNDLES/METAS will be empty)")
+    
 # Prophet serve mode: on-the-fly fitting (no prefit artifact)
 prophet_model = None
 logger.info("Prefit Prophet disabled; forecasts will be fit on-the-fly from Firestore.")
