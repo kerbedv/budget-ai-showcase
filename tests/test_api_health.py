@@ -2,8 +2,10 @@ import os
 import sys
 import types
 
-# Ensure repo root on sys.path
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+REPO_ROOT = os.path.dirname(os.path.dirname(__file__))
+SERVER_DIR = os.path.join(REPO_ROOT, "server")
+sys.path.insert(0, REPO_ROOT)
+sys.path.insert(0, SERVER_DIR)
 
 # ---- Stubs for firebase_admin ----
 if "firebase_admin" not in sys.modules:
