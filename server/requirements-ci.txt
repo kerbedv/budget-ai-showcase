@@ -1,0 +1,6 @@
+flask>=3
+pydantic>=2.8
+pandas>=2.2
+numpy>=1.26
+joblib>=1.3
+pytest

@@ -5,26 +5,28 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
+    env:
+      SAFE_SHOWCASE: "1"
+      BYPASS_AUTH: "1"
+      ALLOW_CLIENT_HISTORY: "1"
+      LOG_LEVEL: "INFO"
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install dependencies
-      run: |
-        pip install -r server/requirements.txt
-        pip install pytest
+      - name: Install minimal deps for tests
+        run: |
+          pip install -r server/requirements-ci.txt
 
-    - name: Run secret scanner
-      run: python scripts/check_secrets.py
+      - name: Secret scan
+        run: |
+          python scripts/check_secrets.py
 
-    - name: Smoke test imports
-      run: |
-        python -c "import fastapi, pydantic, joblib, numpy, pandas; print('✅ imports ok')"
+      - name: Run tests
+        run: |
+          pytest -q
