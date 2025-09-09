@@ -1,4 +1,5 @@
 # Budget-AI — ML + API Showcase
+![CI](https://github.com/kerbedv/budget-ai-showcase/actions/workflows/ci.yml/badge.svg)
 
 🚀 End-to-end machine learning backend for personal finance:
 - **Prophet** for short-horizon forecasts  
