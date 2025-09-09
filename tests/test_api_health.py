@@ -1,3 +1,5 @@
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from server.main import app
 
 def test_health_and_schema():

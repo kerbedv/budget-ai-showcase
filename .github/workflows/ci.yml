@@ -12,6 +12,7 @@ jobs:
       BYPASS_AUTH: "1"
       ALLOW_CLIENT_HISTORY: "1"
       LOG_LEVEL: "INFO"
+      PYTHONPATH: "${{ github.workspace }}"
     steps:
       - uses: actions/checkout@v4
 
